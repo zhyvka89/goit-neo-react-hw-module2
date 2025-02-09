@@ -4,7 +4,7 @@ import Options from './components/Options/Options';
 import Feedback from './components/FeedBack/Feedback';
 import Notification from './components/Notification/Notification';
 
-import './App.css';
+import { center } from './App.module.css';
 
 function App() {
   const [feedBackTypes, setFeedBackType] = useState(() => {
@@ -45,7 +45,7 @@ function App() {
   }
 
   return (
-    <>
+    <div className={center}>
       <Description />
       <Options
         types={feedBackTypes}
@@ -62,7 +62,7 @@ function App() {
       ) : (
         <Notification />
       )}
-    </>
+    </div>
   );
 }
 

@@ -1,24 +1,27 @@
+import { feedback_list, feedback_item, stats } from './FeedBack.module.css';
+
 function Feedback({ types, totalFeedback, positiveFeedback }) {
-  
   return (
-    <ul>
-      {Object.keys(types).map(type => {
-        return (
-          <li key={type}>
-            <span>{type}:</span>
-            <span>{types[type]}</span>
-          </li>
-        );
-      })}
-      <li>
-        <span>Total:</span>
-        <span>{totalFeedback}</span>
-      </li>
-      <li>
-        <span>Positive:</span>
-        <span>{positiveFeedback}%</span>
-      </li>
-    </ul>
+    <>
+      <ul className={feedback_list}>
+        {Object.keys(types).map(type => {
+          return (
+            <li className={feedback_item} key={type}>
+              <span>{type}: </span>
+              <span>{types[type]}</span>
+            </li>
+          );
+        })}
+      </ul>
+      <div>
+        <span>Total: </span>
+        <span className={stats}>{totalFeedback}</span>
+      </div>
+      <div>
+        <span>Positive: </span>
+        <span className={stats}>{positiveFeedback}%</span>
+      </div>
+    </>
   );
 }
 

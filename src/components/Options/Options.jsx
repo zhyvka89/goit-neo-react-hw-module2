@@ -1,16 +1,24 @@
-function Options({ types, handleFeedbackClick, totalFeedback, handleResetClick }) {
+import Button from '/src/components/Button/Button';
+import { btns_list } from './Options.module.css';
+
+function Options({
+  types,
+  handleFeedbackClick,
+  totalFeedback,
+  handleResetClick,
+}) {
   return (
-    <div>
+    <div className={btns_list}>
       {Object.keys(types).map(type => {
-        
         return (
-          <button key={type} onClick={() => handleFeedbackClick(type)}>
+          <Button key={type} handleClick={() => handleFeedbackClick(type)}>
             {type}
-          </button>
+          </Button>
         );
       })}
-      {totalFeedback > 0 && <button onClick={() => handleResetClick()}>Reset</button>}
-      
+      {totalFeedback > 0 && (
+        <Button handleClick={handleResetClick}>Reset</Button>
+      )}
     </div>
   );
 }

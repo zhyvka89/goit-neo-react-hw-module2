@@ -1,0 +1,19 @@
+.feedback_list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.feedback_item {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.feedback_item > span:first-child {
+  text-transform: capitalize;
+  font-weight: normal;
+}
+
+.stats {
+  color: rgb(76, 135, 178);
+}
