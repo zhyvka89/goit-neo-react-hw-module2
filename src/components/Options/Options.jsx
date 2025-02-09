@@ -1,14 +1,16 @@
-function Options({ types, handleClick }) {
+function Options({ types, handleFeedbackClick, totalFeedback, handleResetClick }) {
   return (
     <div>
       {Object.keys(types).map(type => {
-        console.log(types[type]);
+        
         return (
-          <button key={type} onClick={() => handleClick(type)}>
+          <button key={type} onClick={() => handleFeedbackClick(type)}>
             {type}
           </button>
         );
       })}
+      {totalFeedback > 0 && <button onClick={() => handleResetClick()}>Reset</button>}
+      
     </div>
   );
 }

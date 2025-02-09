@@ -1,36 +1,66 @@
+import { useEffect, useState } from 'react';
 import Description from './components/Description/Description';
 import Options from './components/Options/Options';
 import Feedback from './components/FeedBack/Feedback';
 import Notification from './components/Notification/Notification';
 
 import './App.css';
-import { useState } from 'react';
 
 function App() {
-  const [feedBackTypes, setFeedBackType] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0,
+  const [feedBackTypes, setFeedBackType] = useState(() => {
+    const feedbackData = localStorage.getItem('feedbacks')
+
+    if (feedbackData) return JSON.parse(feedbackData);
+
+    return {
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    }
   });
+
+  useEffect(() => {
+    localStorage.setItem('feedbacks', JSON.stringify(feedBackTypes))
+  }, [feedBackTypes])
 
   const totalFeedback =
     feedBackTypes.good + feedBackTypes.neutral + feedBackTypes.bad;
 
-  function updateFeedback(feedbackType) {
+  const positiveFeedback = Math.round(
+    (feedBackTypes.good / totalFeedback) * 100
+  );
+
+  function onUpdateFeedback(feedbackType) {
     setFeedBackType({
       ...feedBackTypes,
       [feedbackType]: feedBackTypes[feedbackType] + 1,
+    });
+  }
+  function onResetClick() {
+    setFeedBackType({
+      good: 0,
+      neutral: 0,
+      bad: 0,
     });
   }
 
   return (
     <>
       <Description />
-      <Options types={feedBackTypes} handleClick={updateFeedback} />
+      <Options
+        types={feedBackTypes}
+        handleFeedbackClick={onUpdateFeedback}
+        totalFeedback={totalFeedback}
+        handleResetClick={onResetClick}
+      />
       {totalFeedback ? (
-        <Feedback types={feedBackTypes} />
+        <Feedback
+          types={feedBackTypes}
+          totalFeedback={totalFeedback}
+          positiveFeedback={positiveFeedback}
+        />
       ) : (
-        <Notification/>
+        <Notification />
       )}
     </>
   );
